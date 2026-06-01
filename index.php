@@ -1,36 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GolazoHub - Estilo Reddit Mundial</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body>
+<?php
+// index.php (Raíz del proyecto)
 
-    <?php
-    define('URL_BASE', 'http://localhost/GolazoHub/'); 
-    include 'views/components/header.php'; ?>
+// 1. Cargar configuraciones globales si las hay (como la base de datos más adelante)
 
-    <div class="dashboard-grid">
-        
-        <div class="grid-col-left">
-            <?php include 'views/components/sidebarLeft.php'; ?>
-        </div>
+// 2. Importar el controlador encargado de la página de inicio
+require_once 'controllers/homeController.php';
 
-        <main class="main-feed">
-            <?php include 'views/components/postCard.php'; ?>
-        </main>
-
-        <div class="grid-col-right">
-            <?php include 'views/components/sidebarRight.php'; ?>
-        </div>
-
-    </div>
-
-    <script>
-        lucide.createIcons();
-    </script>
-</body>
-</html>
+// 3. Instanciar el controlador y ejecutar su acción principal
+$controller = new homeController();
+$controller->index();

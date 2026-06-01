@@ -25,7 +25,7 @@
         </div>
 
         <div class="post-media-container">
-            <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1200" alt="Estadio de fútbol" class="post-media">
+            <img src="https://images.unsplash.com/photo-1629217855633-79a6925d6c47?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHxmb290YmFsbCUyMHdvcmxkJTIwY3VwJTIwc3RhZGl1bSUyMGNyb3dkfGVufDF8fHx8MTc4MDI2NjY2M3ww&ixlib=rb-4.1.0&q=80&w=1080" alt="Estadio de fútbol" class="post-media">
         </div>
 
         <div class="post-footer">
