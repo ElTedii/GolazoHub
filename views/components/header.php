@@ -11,8 +11,8 @@
         </div>
 
         <div class="header-actions">
-            <button class="btn-secondary">Iniciar Sesión</button>
-            <button class="btn-primary">Registrarse</button>
+            <button class="btn-secondary" onclick="openAuthModal('login')">Iniciar Sesión</button>
+            <button class="btn-primary" onclick="openAuthModal('register')">Registrarse</button>
         </div>
     </div>
 </header>

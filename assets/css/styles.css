@@ -1,92 +1,38 @@
-/* Reset */
+/* ==========================================
+   RESETEO GLOBAL Y VARIABLES
+   ========================================== */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Evita que los paddings ensanchen las columnas */
+    box-sizing: border-box;
 }
 
-/* Estilos Generales */
+:root {
+    --bg-main: #0b1416;
+    --bg-card: #1a282d;
+    --text-primary: #dee2e6;
+    --text-muted: #868e96;
+    --accent: #00b4d8;
+    --accent-hover: #0077b6;
+    --border-color: #2d3748;
+}
+
 body {
     background-color: var(--bg-main);
     color: var(--text-primary);
     font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-/* El Grid de 3 columnas responsivo estilo Reddit */
-.dashboard-grid {
-    display: flex !important;      /* Cambiamos a Flexbox que es más estricto para no bajarse */
-    flex-direction: row !important; /* Fuerza a que se pongan uno al lado del otro en horizontal */
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
-    gap: 20px;
-    justify-content: space-between;
-    align-items: start;
-}
-
-.grid-col-left {
-    width: 240px !important;
-    min-width: 240px !important; /* No permite que se encoja */
-    display: block !important;
-}
-
-/* Cuando la pantalla sea grande (computadora), se activan las 3 columnas */
-@media (min-width: 768px) {
-    .dashboard-grid {
-        grid-template-cols: 240px 1fr 310px;
-    }
-}
-
-/* Columna Central (Feed Principal) */
-.main-feed {
-    flex: 1 !important; /* Ocupa todo el espacio que quede libre en medio */
-    display: flex !important;
-    flex-direction: column;
-    gap: 16px;
-    min-width: 0; /* Truco vital para que el contenido de los posts no empuje la columna */
-}
-
-/* Columna Derecha (Widgets) */
-.grid-col-right {
-    width: 310px !important;
-    min-width: 310px !important; /* No permite que se encoja */
-    display: block !important;
-}
-
-/* Estilos de tus tarjetas o contenedores */
-.bg-dark-card {
-    background-color: #1a282d;
-    border-radius: 8px;
-    padding: 16px;
-}
-
-/* Variables de color basadas en tu boceto */
-:root {
-    --bg-main: #0b1416;
-    --bg-card: #1a282d;
-    --text-primary: #dee2e6;
-    --text-muted: #868e96;
-    --accent: #00b4d8; /* Azul deportivo para destacar */
-    --accent-hover: #0077b6;
-    --border-color: #2d3748;
-}
-
-/* Estilos Generales */
-body {
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-/* Header */
+/* ==========================================
+   HEADER
+   ========================================== */
 .main-header {
     background-color: var(--bg-card);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 100;
+    width: 100%;
 }
 
 .header-container {
@@ -99,7 +45,6 @@ body {
     gap: 16px;
 }
 
-/* Logo */
 .header-logo {
     display: flex;
     align-items: center;
@@ -116,14 +61,12 @@ body {
 .logo-text {
     font-size: 1.3rem;
     font-weight: bold;
-    letter-spacing: 0.5px;
 }
 
 .text-accent {
     color: var(--accent);
 }
 
-/* Buscador */
 .header-search {
     flex: 1;
     max-width: 600px;
@@ -149,14 +92,8 @@ body {
     color: var(--text-primary);
     outline: none;
     font-size: 0.9rem;
-    transition: border-color 0.2s;
 }
 
-.search-input:focus {
-    border-color: var(--accent);
-}
-
-/* Botones */
 .header-actions {
     display: flex;
     gap: 12px;
@@ -168,7 +105,6 @@ body {
     font-weight: 600;
     font-size: 0.9rem;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
     border: none;
 }
 
@@ -177,79 +113,124 @@ body {
     color: #fff;
 }
 
-.btn-primary:hover {
-    background-color: var(--accent-hover);
-}
-
 .btn-secondary {
     background-color: transparent;
     color: var(--text-primary);
     border: 1px solid var(--border-color);
 }
 
-.btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* Grid Principal del Dashboard */
+/* ==========================================
+   GRID PRINCIPAL RESPONSIVO DEFINITIVO
+   ========================================== */
 .dashboard-grid {
-    display: grid;
-    grid-template-cols: 1fr;
-    gap: 16px;
+    display: block; /* En móviles fluye hacia abajo de forma natural */
+    width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 16px;
+    padding: 12px;
+    box-sizing: border-box;
 }
 
-@media (min-width: 768px) {
+/* Comportamiento base para celular (Separados y uno abajo del otro) */
+.grid-col-left, 
+.main-feed, 
+.grid-col-right {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+/* En celular ocultamos los costados (Comportamiento correcto estilo Reddit) */
+.grid-col-left, 
+.grid-col-right {
+    display: none !important; 
+}
+
+.main-feed {
+    display: flex !important;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ==========================================
+   PANTALLAS GRANDES (COMPUTADORA / PC)
+   ========================================== */
+@media (min-width: 992px) {
     .dashboard-grid {
-        grid-template-cols: 240px 1fr 310px;
+        display: flex !important; /* Cambiamos a Flexbox en PC para control absoluto */
+        flex-direction: row !important; /* Forzamos línea horizontal */
+        justify-content: space-between;
+        align-items: start;
+        gap: 24px !important;
+        padding: 20px !important;
+    }
+
+    /* Columna Izquierda (Menú): Rígida, no se puede estirar ni encoger */
+    .grid-col-left {
+        display: block !important;
+        flex: 0 0 240px !important; /* Mide exactamente 240px fijamente */
+        width: 240px !important;
+        max-width: 240px !important;
+        position: sticky !important;
+        top: 80px;
+        margin-bottom: 0;
+    }
+
+    /* Columna Derecha (Partidos): Rígida, no se puede estirar ni encoger */
+    .grid-col-right {
+        display: block !important;
+        flex: 0 0 310px !important; /* Mide exactamente 310px fijamente */
+        width: 310px !important;
+        max-width: 310px !important;
+        position: sticky !important;
+        top: 80px;
+        margin-bottom: 0;
+    }
+
+    /* Columna Central (Feed): Flexible, toma TODO el espacio que sobre en medio */
+    .main-feed {
+        flex: 1 !important; 
+        width: auto !important;
+        max-width: 100% !important;
+        min-width: 0 !important; /* Evita que el contenido interno empuje y desborde la columna */
+        margin-bottom: 0;
     }
 }
 
-/* Asegurar que las tarjetas no se desborden de sus columnas */
-.sidebar-left, .sidebar-right, .post-card, .sidebar-card {
+/* ==========================================
+   AJUSTE DE SEGURIDAD PARA CONTENIDOS INTERNOS
+   ========================================== */
+.sidebar-left, 
+.sidebar-right, 
+.post-card, 
+.sidebar-card,
+.sidebar-right aside,
+.sidebar-left div {
     width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    box-sizing: border-box !important;
 }
 
-/* Sidebar Izquierdo */
-.sidebar-left {
-    display: none; /* Se oculta en celulares para cumplir la responsividad */
-}
-
-@media (min-width: 768px) {
-    .sidebar-left {
-        display: block;
-        position: sticky;
-        top: 75px; /* Altura del header + separación */
-        height: calc(100vh - 90px);
-        overflow-y: auto;
-    }
-}
-
+/* ==========================================
+    SIDEBAR IZQUIERDO (MUNDIALES Y CATEGORÍAS)
+   ========================================== */
 .sidebar-section {
     margin-bottom: 24px;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 16px;
 }
 
-.sidebar-section:last-child {
-    border-bottom: none;
-}
-
 .section-title {
     font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
     color: var(--text-muted);
     margin-bottom: 12px;
-    padding-left: 8px;
 }
 
 .sidebar-menu {
     list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
 .menu-item {
@@ -260,13 +241,6 @@ body {
     border-radius: 8px;
     cursor: pointer;
     font-size: 0.95rem;
-    transition: background-color 0.2s, color 0.2s;
-    color: var(--text-primary);
-}
-
-.menu-item i {
-    width: 20px;
-    height: 20px;
     color: var(--text-primary);
 }
 
@@ -278,16 +252,6 @@ body {
     background-color: rgba(0, 180, 216, 0.1);
     color: var(--accent);
     font-weight: 600;
-}
-
-.menu-item.active i {
-    color: var(--accent);
-}
-
-.flag-icon {
-    font-size: 1.2rem;
-    width: 20px;
-    text-align: center;
 }
 
 /* Menú con scroll interno si hay muchos mundiales */
@@ -307,8 +271,13 @@ body {
     border-radius: 4px;
 }
 
+.flag-icon {
+    font-size: 1.2rem;
+}
 
-/* Tarjeta de Publicación (Post Card) */
+/* ==========================================
+   FEED CENTRAL (POST CARDS)
+   ========================================== */
 .post-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -316,14 +285,9 @@ body {
     display: flex;
     padding: 12px;
     gap: 12px;
-    transition: border-color 0.2s;
+    width: 100% !important;
 }
 
-.post-card:hover {
-    border-color: #4a5568;
-}
-
-/* Sistema de Votación Lateral */
 .post-voting {
     display: flex;
     flex-direction: column;
@@ -340,33 +304,13 @@ body {
     border: none;
     color: var(--text-muted);
     cursor: pointer;
-    padding: 2px;
-    border-radius: 4px;
-    transition: color 0.2s, background-color 0.2s;
-}
-
-.vote-btn i {
-    width: 24px;
-    height: 24px;
-}
-
-.vote-btn.upvote:hover {
-    color: #ff4500; /* Color naranja clásico de upvote */
-    background-color: rgba(255, 69, 0, 0.1);
-}
-
-.vote-btn.downvote:hover {
-    color: #7193ff; /* Color azul de downvote */
-    background-color: rgba(113, 147, 255, 0.1);
 }
 
 .vote-count {
     font-size: 0.85rem;
     font-weight: bold;
-    color: var(--text-primary);
 }
 
-/* Área del Contenido */
 .post-content-area {
     flex: 1;
     display: flex;
@@ -374,63 +318,37 @@ body {
     gap: 8px;
 }
 
-/* Meta información del post */
 .post-meta {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 0.75rem;
-    flex-wrap: wrap;
 }
 
 .post-mundial-tag {
     font-weight: 600;
-    color: var(--text-primary);
     background-color: rgba(255, 255, 255, 0.08);
     padding: 2px 6px;
     border-radius: 4px;
 }
 
-.post-user {
-    color: var(--text-muted);
-}
-
-.post-time {
-    color: var(--text-muted);
-}
-
-/* Título */
 .post-title {
     font-size: 1.15rem;
     margin: 0;
-    font-weight: 600;
-    line-height: 1.4;
-    color: var(--text-primary);
 }
 
-/* Badges de Categoría */
 .category-badge {
     display: inline-flex;
     align-items: center;
     gap: 4px;
     font-size: 0.75rem;
-    font-weight: 600;
     padding: 4px 10px;
     border-radius: 12px;
-}
-
-.badge-jugadas {
     background-color: rgba(0, 180, 216, 0.15);
     color: var(--accent);
-    border: 1px solid rgba(0, 180, 216, 0.3);
+    width: fit-content;
 }
 
-.category-badge i {
-    width: 14px;
-    height: 14px;
-}
-
-/* Contenedor Multimedia */
 .post-media-container {
     width: 100%;
     max-height: 450px;
@@ -441,7 +359,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 4px;
 }
 
 .post-media {
@@ -450,66 +367,404 @@ body {
     object-fit: contain;
 }
 
-/* Pie de tarjeta (Footer) */
 .post-footer {
     display: flex;
     gap: 12px;
-    margin-top: 4px;
-    flex-wrap: wrap;
 }
 
 .footer-action-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
     background: none;
     border: none;
     color: var(--text-muted);
-    cursor: pointer;
-    padding: 6px 8px;
-    border-radius: 4px;
     font-size: 0.8rem;
-    font-weight: 600;
-    transition: background-color 0.2s, color 0.2s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-.footer-action-btn i {
-    width: 16px;
-    height: 16px;
-}
-
-.footer-action-btn:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--text-primary);
-}
-
-/* Estilo para botones administrativos en el feed */
-.footer-action-btn.admin-only {
-    color: #ef4444;
-}
-
-.footer-action-btn.admin-only:hover {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: #f87171;
-}
-
-
-/* Sidebar Derecho */
+/* ==========================================
+   WIDGETS DE LA COLUMNA DERECHA (PARTIDOS Y TABLAS)
+   ========================================== */
 .sidebar-right {
-    display: none; /* Oculto en celulares */
-}
-
-@media (min-width: 768px) {
-    .sidebar-right {
-        display: block;
-        position: sticky;
-        top: 75px;
-    }
+    width: 100%;
 }
 
 .sidebar-card {
+    background-color: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.widget-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--accent) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.live-indicator-global {
+    font-size: 0.7rem;
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.matches-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.match-item {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.match-item.live {
+    border-color: rgba(239, 68, 68, 0.4);
+    background-color: rgba(239, 68, 68, 0.02);
+}
+
+.match-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.match-time-live {
+    color: #ef4444;
+    font-weight: bold;
+}
+
+.match-teams {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.team-flag {
+    margin-right: 8px;
+}
+
+.team-name {
+    flex: 1;
+    color: var(--text-primary);
+}
+
+.team-score {
+    font-weight: bold;
+}
+
+.mini-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+
+.mini-table th, .mini-table td {
+    padding: 6px 4px;
+    text-align: center;
+}
+
+.mini-table th {
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.mini-table td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.zone-qualify td:first-child {
+    border-left: 3px solid #10b981;
+    padding-left: 2px;
+}
+
+
+/* ==========================================
+   PANTALLAS DE CREACIÓN DE POSTS
+   ========================================== */
+.create-post-container {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 16px;
+    padding: 20px;
+}
+
+.create-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.create-post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Selectores en fila */
+.form-row-selectors {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap; /* En móvil se baja uno abajo del otro */
+}
+
+.form-group-select {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group-select label,
+.form-group-fields label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-group-select select {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px;
+    color: var(--text-primary);
+    outline: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Campos de Texto */
+.form-group-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group-fields input[type="text"],
+.form-group-fields textarea {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group-fields input[type="text"]:focus,
+.form-group-fields textarea:focus {
+    border-color: var(--accent);
+}
+
+/* Zona de Arrastre Dropzone */
+.upload-dropzone {
+    border: 2px dashed var(--border-color);
+    border-radius: 6px;
+    padding: 30px 20px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.01);
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.upload-dropzone:hover {
+    border-color: var(--accent);
+    background-color: rgba(0, 180, 216, 0.02);
+}
+
+.upload-icon {
+    width: 40px;
+    height: 40px;
+    color: var(--text-muted);
+}
+
+.upload-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.upload-subtext {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.file-preview-name {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 600;
+    display: none;
+}
+
+/* Botones de acción */
+.form-actions-submit {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+    margin-top: 8px;
+}
+
+
+/* ==========================================
+   MODAL DE AUTENTICACIÓN (ESTILOS GLOBALES)
+   ========================================== */
+.auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Forzar que se superponga ante cualquier post o sidebar */
+}
+
+.modal-container {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 32px 24px;
+    position: relative;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.close-modal-btn:hover {
+    color: var(--text-primary);
+}
+
+.auth-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin: 0 0 6px 0;
+}
+
+.auth-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0 0 24px 0;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-group input {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    border-color: var(--accent);
+}
+
+.btn-block {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+}
+
+.auth-footer-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+.auth-footer-text a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-footer-text a:hover {
+    text-decoration: underline;
 }
