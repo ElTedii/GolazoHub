@@ -18,27 +18,27 @@
             </div>
 
             <main class="main-feed">
-    
-                <?php 
-                    $hay_posts = true; // Si lo cambias a false, verás el diseño vacío
-                ?>
 
-                <?php if ($hay_posts == false): ?>
-                    
-                    <div class="post-card" style="padding: 40px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 250px;">
-                        <div style="background-color: var(--bg-main); width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; border: 1px solid var(--border-color);">
-                            <i data-lucide="frown" style="width: 32px; height: 32px; color: var(--text-muted);"></i>
-                        </div>
-                        <h3 style="margin: 0 0 8px 0; color: var(--text-primary); font-size: 1.1rem;">No hay debates en esta comunidad</h3>
-                        <p style="margin: 0 0 20px 0; color: var(--text-muted); font-size: 0.9rem; max-width: 320px;">Sé el primero en encender la polémica compartiendo tus argumentos.</p>
+            <?php 
+                $hay_posts = false; // Si lo cambias a false, verás el diseño vacío
+            ?>
+
+            <?php if ($hay_posts == false): ?>
+                
+                <div class="post-card" style="padding: 40px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 250px;">
+                    <div style="background-color: var(--bg-main); width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; border: 1px solid var(--border-color);">
+                        <i data-lucide="frown" style="width: 32px; height: 32px; color: var(--text-muted);"></i>
                     </div>
+                    <h3 style="margin: 0 0 8px 0; color: var(--text-primary); font-size: 1.1rem;">No hay debates en esta comunidad</h3>
+                    <p style="margin: 0 0 20px 0; color: var(--text-muted); font-size: 0.9rem; max-width: 320px;">Sé el primero en encender la polémica compartiendo tus argumentos.</p>
+                </div>
 
-                <?php else: ?>
-                    
-                    <?php include 'views/components/postCard.php'; ?>
-                    <?php include 'views/components/postCard.php'; ?>
+            <?php else: ?>
+                
+                <?php include 'views/components/postCard.php'; ?>
+                <?php include 'views/components/postCard.php'; ?>
 
-                <?php endif; ?>
+            <?php endif; ?>
 
             </main>
 
