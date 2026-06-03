@@ -768,3 +768,147 @@ body {
 .auth-footer-text a:hover {
     text-decoration: underline;
 }
+
+
+/* ==========================================
+   PANTALLA DETALLE DE POST Y COMENTARIOS ANIDADOS
+   ========================================== */
+.post-detail-expanded {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.post-title-detail {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin: 12px 0;
+    line-height: 1.3;
+}
+
+.post-body-text {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+/* Área de comentarios */
+.comments-section {
+    margin-top: 16px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.comments-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin: 0 0 16px 0;
+}
+
+/* Editor de comentarios */
+.comment-box-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.comment-box-container textarea {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.comment-box-container textarea:focus {
+    border-color: var(--accent);
+}
+
+.comment-box-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Estructura del Árbol de Hilos (Reddit Threads) */
+.comment-node {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 16px;
+}
+
+.comment-meta {
+    display: flex;
+    gap: 10px;
+    font-size: 0.8rem;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.comment-time {
+    color: var(--text-muted);
+}
+
+.comment-content {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    line-height: 1.4;
+    padding-left: 2px;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 4px;
+}
+
+.comment-vote-btn, .comment-reply-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.comment-vote-btn svg, .comment-reply-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.comment-vote-btn:hover, .comment-reply-btn:hover {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+}
+
+/* LA MAGIA DE LA ANIDACIÓN: Línea vertical guía */
+.comment-replies {
+    margin-left: 16px;       /* Desplaza las respuestas a la derecha */
+    padding-left: 14px;      /* Genera espacio interno para separar del texto */
+    border-left: 2px solid var(--border-color); /* La famosa línea vertical de Reddit */
+    transition: border-color 0.2s;
+}
+
+.comment-replies:hover {
+    border-left-color: var(--text-muted); /* Ilumina la línea cuando pasas el cursor */
+}

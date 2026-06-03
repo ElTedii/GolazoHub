@@ -6,4 +6,4 @@ require_once 'controllers/homeController.php';
 
 // 3. Instanciar el controlador y ejecutar su acción principal
 $controller = new homeController();
-$controller->index();
+$controller->index(); // Cambiado temporalmente para ver el formulario de creación de posts
