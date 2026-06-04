@@ -912,3 +912,42 @@ body {
 .comment-replies:hover {
     border-left-color: var(--text-muted); /* Ilumina la línea cuando pasas el cursor */
 }
+
+
+/* ==========================================
+    FOOTER CON IMAGEN RESPONSIVA
+   ========================================== */
+.main-footer {
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    padding: 24px 16px;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center; /* Centra la imagen perfectamente en la pantalla */
+    align-items: center;
+}
+
+.footer-brand-link {
+    display: inline-block;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    line-height: 0; /* Quita espacios fantasma debajo de la imagen */
+}
+
+/* Efecto hover estilo gaming al pasar el cursor */
+.footer-brand-link:hover {
+    transform: scale(1.03); /* Se hace un poquitito más grande al pasar el mouse */
+    opacity: 0.9;
+}
+
+.footer-image {
+    max-width: 75px; /* Controla el ancho máximo que quieres que tenga */
+    width: 100%;      /* Hace que se encoja solita si la pantalla es de celular */
+    height: auto;     /* Mantiene la proporción original para que no se deforme */
+    object-fit: contain;
+}

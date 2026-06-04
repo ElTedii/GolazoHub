@@ -6,16 +6,16 @@
             <h2 class="auth-title">Iniciar Sesión</h2>
             <p class="auth-subtitle">Conéctate a GolazoHub para votar y comentar.</p>
             
-            <form action="/GolazoHub/auth/login" method="POST" class="auth-form">
+            <form action="/GolazoHub/index.php?action=login" method="POST" class="auth-form">
                 <div class="form-group">
                     <label for="login_user">Usuario o Correo</label>
-                    <input type="text" id="login_user" name="usuario" placeholder="Ej. ElDiego10" required>
+                    <input type="text" id="login_user" name="usuario_login" placeholder="Tu usuario o correo" required>
                 </div>
                 <div class="form-group">
                     <label for="login_pass">Contraseña</label>
-                    <input type="password" id="login_pass" name="password" placeholder="••••••••" required>
+                    <input type="password" id="login_pass" name="password_login" placeholder="Ingresa tu contraseña" required>
                 </div>
-                <button type="submit" class="btn-primary btn-block">Entrar</button>
+                <button type="submit" class="btn-primary btn-block">Iniciar Sesión</button>
             </form>
             <p class="auth-footer-text">
                 ¿Eres nuevo en GolazoHub? <a href="#" onclick="switchAuthSection('register')">Regístrate</a>
@@ -26,7 +26,7 @@
             <h2 class="auth-title">Crear una Cuenta</h2>
             <p class="auth-subtitle">Únete a la comunidad de debate del mundial.</p>
             
-            <form action="/GolazoHub/auth/register" method="POST" class="auth-form">
+            <form action="/GolazoHub/index.php?action=register" method="POST" class="auth-form">
                 <div class="form-group">
                     <label for="reg_user">Nombre de Usuario</label>
                     <input type="text" id="reg_user" name="usuario" placeholder="Ej. Isma_Goalkeep" required>
