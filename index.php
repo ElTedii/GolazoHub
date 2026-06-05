@@ -1,32 +1,44 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"/>
 <?php
-// 1. Iniciar la sesión al principio de todo (Obligatorio para el Login)
+// index.php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// 2. Importar el controlador encargado de las páginas
+// 1. Importar los controladores obligatorios
 require_once 'controllers/homeController.php';
+require_once 'controllers/postController.php';
 
-// 3. Instanciar el controlador
-$controller = new homeController();
+$homeCtrl = new homeController();
+$postCtrl = new PostController();
 
-// 4. Capturar qué acción quiere hacer el usuario por la URL (?action=...)
+// 2. Capturar la acción por URL (?action=...)
 $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 
-// 5. EL ENRUTADOR: Evaluamos la acción ANTES de cargar cualquier vista
+// 3. EL ENRUTADOR DEFINITIVO
 if ($action == 'register') {
-    $controller->register();
+    $homeCtrl->register();
 } elseif ($action == 'login') {
-    $controller->autenticar();
-} elseif ($action == 'cambiar_foto') {
-    $controller->cambiarFoto(); // <--- NUEVA
-} elseif ($action == 'ver_avatar') {
-    $controller->verAvatar();   // <--- NUEVA
+    $homeCtrl->autenticar();
 } elseif ($action == 'logout') {
-    $controller->logout();       // <--- NUEVA
+    $homeCtrl->logout();
 } elseif ($action == 'profile') {
-    $controller->profile();
+    $homeCtrl->profile();
+} elseif ($action == 'cambiar_foto') {
+    $homeCtrl->cambiarFoto();
+} elseif ($action == 'ver_avatar') {
+    $homeCtrl->verAvatar();
+} 
+// --- RUTAS DE PUBLICACIONES Y VOTACIÓN ---
+elseif ($action == 'create_post') {
+    $postCtrl->create(); // Muestra el formulario
+} elseif ($action == 'store_post') {
+    $postCtrl->store();  // Procesa y guarda el post en la BD
+} elseif ($action == 'ver_imagen_post') {
+    $postCtrl->verImagen(); // Renderiza imágenes BLOB
+} elseif ($action == 'vote_post') {
+    // Aquí irá tu método o lógica de votación posterior
+    header("Location: /GolazoHub2/");
 } else {
-    $controller->index();
+    $homeCtrl->index();
 }

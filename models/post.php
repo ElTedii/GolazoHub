@@ -59,19 +59,39 @@ class Post {
                     m.nombre AS mundial_nombre,
                     (SELECT COUNT(*) FROM votos v WHERE v.post_id = p.id AND v.tipo_voto = 'up') AS upvotes,
                     (SELECT COUNT(*) FROM votos v WHERE v.post_id = p.id AND v.tipo_voto = 'down') AS downvotes
-                  FROM posts p
-                  INNER JOIN usuarios u ON p.usuario_id = u.id
-                  INNER JOIN categorias c ON p.categoria_id = c.id
-                  INNER JOIN mundiales m ON p.mundial_id = m.id
+                    FROM posts p
+                    INNER JOIN usuarios u ON p.usuario_id = u.id
+                    INNER JOIN categorias c ON p.categoria_id = c.id
+                    INNER JOIN mundiales m ON p.mundial_id = m.id
                   ORDER BY p.fecha_creacion DESC"; // Los más nuevos primero, estilo Reddit
 
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        // En caso de error, retornamos un arreglo vacío para que la vista no explote
-        return [];
+        } catch (PDOException $e) {
+            // En caso de error, retornamos un arreglo vacío para que la vista no explote
+            return [];
+        }
     }
-}
+
+        public function obtenerMundiales() {
+        try {
+            $stmt = $this->db->prepare("SELECT id, nombre, anio FROM mundiales ORDER BY anio DESC");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+
+    public function obtenerCategorias() {
+        try {
+            $stmt = $this->db->prepare("SELECT id, nombre FROM categorias ORDER BY nombre ASC");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
 }

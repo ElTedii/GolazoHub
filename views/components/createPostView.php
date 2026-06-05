@@ -23,9 +23,7 @@
                     <h2 style="font-size: 1.4rem; font-weight: bold; color: var(--text-primary); margin: 0;">Crear una publicación</h2>
                 </div>
 
-                <form action="/GolazoHub/posts/store" method="POST" enctype="multipart/form-data" class="post-card" style="padding: 24px; display: flex; flex-direction: column; gap: 20px;">
-                    
-                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                <form action="/GolazoHub/index.php?action=store_post" method="POST" enctype="multipart/form-data" class="create-post-form">
                         <div class="form-group" style="flex: 1; min-width: 180px;">
                             <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; display: block;">Seleccionar Comunidad</label>
                             <select name="mundial_id" required style="background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; color: var(--text-primary); width: 100%; outline: none;">
@@ -69,7 +67,7 @@
                     </div>
 
                     <div style="display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--border-color); padding-top: 16px; margin-top: 8px;">
-                        <button type="button" class="btn-secondary" onclick="window.location.href='/GolazoHub/'" style="padding: 10px 20px;">Cancelar</button>
+                        <button type="button" class="btn-   ondary" onclick="window.location.href='/GolazoHub/'" style="padding: 10px 20px;">Cancelar</button>
                         <button type="submit" class="btn-primary" style="padding: 10px 24px;">Publicar</button>
                     </div>
 
