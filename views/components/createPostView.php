@@ -24,25 +24,36 @@
                 </div>
 
                 <form action="/GolazoHub/index.php?action=store_post" method="POST" enctype="multipart/form-data" class="create-post-form">
-                        <div class="form-group" style="flex: 1; min-width: 180px;">
-                            <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; display: block;">Seleccionar Comunidad</label>
-                            <select name="mundial_id" required style="background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; color: var(--text-primary); width: 100%; outline: none;">
-                                <option value="1">🇶🇦 Catar 2022</option>
-                                <option value="2">🇷🇺 Rusia 2018</option>
-                                <option value="3">🇧🇷 Brasil 2014</option>
-                                <option value="4">🇿🇦 Sudáfrica 2010</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="mundial_id">Mundial Asociado</label>
+                        <select name="mundial_id" id="mundial_id" required>
+                            <option value="">-- Selecciona un Mundial --</option>
 
-                        <div class="form-group" style="flex: 1; min-width: 180px;">
-                            <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; display: block;">Categoría de Debate</label>
-                            <select name="categoria_id" required style="background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; color: var(--text-primary); width: 100%; outline: none;">
-                                <option value="1">Polémicas Históricas</option>
-                                <option value="2">Debate Táctico</option>
-                                <option value="3">Memes Futboleros</option>
-                                <option value="4">Análisis En Vivo</option>
-                            </select>
-                        </div>
+                            <?php if (isset($mundiales) && is_array($mundiales)): ?>
+                                <?php foreach ($mundiales as $m): ?>
+                                    <option value="<?= $m['id']; ?>">
+                                        <?= htmlspecialchars($m['nombre'] . ' (' . $m['anio'] . ')'); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria_id">Categoría del Debate</label>
+                        <select name="categoria_id" id="categoria_id" required>
+                            <option value="">-- Selecciona una Categoría --</option>
+
+                            <?php if (isset($categorias) && is_array($categorias)): ?>
+                                <?php foreach ($categorias as $c): ?>
+                                    <option value="<?= $c['id']; ?>">
+                                        <?= htmlspecialchars($c['nombre']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                        </select>
                     </div>
 
                     <div class="form-group">

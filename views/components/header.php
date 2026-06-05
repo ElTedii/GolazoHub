@@ -20,18 +20,11 @@
                     <?= htmlspecialchars($_SESSION['usuario_nombre']); ?>
                 </span>
                 
-                <form id="avatarForm" action="/GolazoHub/index.php?action=cambiar_foto" method="POST" enctype="multipart/form-data" style="margin: 0; padding: 0; display: flex; align-items: center;">
-                    <label for="avatarInput" style="cursor: pointer; position: relative; display: block; line-height: 0; margin: 0;" title="Cambiar foto de perfil">
-                        <img src="/GolazoHub/index.php?action=ver_avatar&id=<?= $_SESSION['usuario_id']; ?>&t=<?= time(); ?>" 
-                            alt="Avatar" 
-                            style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); display: block;">
-                        
-                        <div style="position: absolute; bottom: -2px; right: -2px; background: var(--accent); border-radius: 50%; width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--bg-card);">
-                            <i data-lucide="camera" style="width: 8px; height: 8px; color: white;"></i>
-                        </div>
-                    </label>
-                    <input type="file" id="avatarInput" name="avatar" accept="image/*" style="display: none;" onchange="document.getElementById('avatarForm').submit();">
-                </form>
+                <a href="/GolazoHub/index.php?action=profile" style="text-decoration: none;">
+                    <img src="/GolazoHub/index.php?action=ver_avatar&id=<?= $_SESSION['usuario_id']; ?>" 
+                        alt="Avatar" 
+                        style="width:40px; height:40px; border-radius:50%; object-fit:cover; border: 2px solid #ddd;">
+                </a>
 
                 <a href="/GolazoHub/index.php?action=logout" class="btn-secondary" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; height: 36px; padding: 0 16px; border-radius: 20px;" title="Cerrar Sesión">
                     <i data-lucide="log-out" style="width: 14px; height: 14px;"></i>

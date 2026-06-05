@@ -2,11 +2,10 @@
 // controllers/postController.php
 
 class PostController {
-
     public function create() {
         // 1. Validar que el usuario tenga sesión activa antes de dejarlo ver el formulario
         if (!isset($_SESSION['usuario_id'])) {
-            header("Location: /GolazoHub2/index.php?error=Inicia sesión para poder publicar.");
+            header("Location: /GolazoHub/index.php?error=Inicia sesión para poder publicar.");
             exit();
         }
 
@@ -26,7 +25,7 @@ class PostController {
     public function store() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (!isset($_SESSION['usuario_id'])) {
-                header("Location: /GolazoHub2/index.php?error=Debes iniciar sesión para publicar.");
+                header("Location: /GolazoHub/index.php?error=Debes iniciar sesión para publicar.");
                 exit();
             }
 
@@ -38,7 +37,7 @@ class PostController {
 
         // Validaciones básicas obligatorias
         if (empty($titulo) || $mundial_id === 0 || $categoria_id === 0) {
-            header("Location: /GolazoHub2/index.php?action=create_post&error=Campos obligatorios vacíos.");
+            header("Location: /GolazoHub/index.php?action=create_post&error=Campos obligatorios vacíos.");
             exit();
         }
 
@@ -57,11 +56,11 @@ class PostController {
                     $multimediaData = file_get_contents($fileTmpPath);
                     $tipoMultimedia = $fileType;
                 } else {
-                    header("Location: /GolazoHub2/index.php?action=create_post&error=Formato no permitido. Usa JPG, PNG o GIF.");
+                    header("Location: /GolazoHub/index.php?action=create_post&error=Formato no permitido. Usa JPG, PNG o GIF.");
                     exit();
                 }
             } else {
-                header("Location: /GolazoHub2/index.php?action=create_post&error=La imagen excede los 16MB.");
+                header("Location: /GolazoHub/index.php?action=create_post&error=La imagen excede los 16MB.");
                 exit();
             }
         }
@@ -71,10 +70,10 @@ class PostController {
         $exito = $postModel->crear($usuario_id, $mundial_id, $categoria_id, $titulo, $contenido, $multimediaData, $tipoMultimedia);
 
         if ($exito) {
-            header("Location: /GolazoHub2/index.php?success=Post publicado correctamente");
+            header("Location: /GolazoHub/index.php?success=Post publicado correctamente");
             exit();
         } else {
-            header("Location: /GolazoHub2/index.php?action=create_post&error=Error interno al guardar en la Base de Datos.");
+            header("Location: /GolazoHub/index.php?action=create_post&error=Error interno al guardar en la Base de Datos.");
             exit();
         }
     }

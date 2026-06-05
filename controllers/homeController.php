@@ -5,21 +5,47 @@ require_once 'config/Database.php';
 require_once 'models/Usuario.php';
 
 class homeController {
-    
-public function index() {
-    // 1. Cargamos el modelo de los Posts
-    require_once 'models/Post.php';
-    $postModel = new Post();
 
-    // 2. Traemos todos los registros de la Base de Datos
-    $posts = $postModel->obtenerTodos();
+    public function index() {
+        require_once 'models/Post.php';
+        $postModel = new Post();
 
-    // 3. Cargamos tu vista principal (que ya tiene el foreach esperando esta variable)
-    require_once 'views/homeView.php';
-}
+        // 1. Detectar si hay filtros activos en la URL
+        $mundial_id = isset($_GET['mundial_id']) ? intval($_GET['mundial_id']) : null;
+        $categoria_id = isset($_GET['categoria_id']) ? intval($_GET['categoria_id']) : null;
+
+        // 2. Traer los posts (filtrados o todos)
+        if ($mundial_id) {
+            // Puedes crear este método en tu modelo o pasarle los filtros a obtenerTodos
+            $posts = $postModel->obtenerTodos($mundial_id, null);
+        } elseif ($categoria_id) {
+            $posts = $postModel->obtenerTodos(null, $categoria_id);
+        } else {
+            $posts = $postModel->obtenerTodos();
+        }
+
+        // 3. Traer los catálogos para el sidebar
+        $mundiales = $postModel->obtenerMundiales();
+        $categorias = $postModel->obtenerCategorias();
+
+        // Cargamos la vista principal
+        require_once 'views/homeView.php';
+    }
 
     public function profile() {
-        require_once 'views/profileView.php';
+
+            // 1. Verificamos que el usuario esté logueado
+        if (!isset($_SESSION['usuario_id'])) {
+            header("Location: /GolazoHub/");
+            exit();
+        }
+
+        // 2. Instanciamos el modelo y traemos los datos
+        $usuarioModel = new Usuario();
+        $usuario = $usuarioModel->obtenerUsuarioPorId($_SESSION['usuario_id']);
+
+        // 3. Pasamos la variable $usuario a la vista
+        require_once 'views/components/profileView.php';
     }
 
     public function register() {
@@ -82,48 +108,37 @@ public function index() {
         }
     }
 
-    // Dentro de controllers/homeController.php
-
     public function cambiarFoto() {
-        if (session_status() === PHP_SESSION_NONE) { session_start(); }
-        
-        // Verificamos que esté logueado y que venga un archivo válido
-        if (isset($_SESSION['usuario_id']) && isset($_FILES['avatar']) && $_FILES['avatar']['error'] == 0) {
-            $tipo_mime = $_FILES['avatar']['type'];
-            
-            // Validamos con empty o filtros que sea una imagen real
-            if (strpos($tipo_mime, 'image/') === 0) {
-                $contenido_binario = file_get_contents($_FILES['avatar']['tmp_name']);
-                
-                $usuarioModel = new Usuario();
-                $usuarioModel->actualizarAvatar($_SESSION['usuario_id'], $contenido_binario, $tipo_mime);
-            }
+        if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === 0) {
+            $contenido = file_get_contents($_FILES['avatar']['tmp_name']);
+            $tipo = $_FILES['avatar']['type'];
+            $usuarioModel = new Usuario();
+            $usuarioModel->actualizarAvatar($_SESSION['usuario_id'], $contenido, $tipo);
         }
-        header("Location: /GolazoHub/");
+        // Redirección limpia
+        header("Location: /GolazoHub/index.php?action=profile");
         exit();
     }
 
-public function verAvatar() {
-    // Limpiamos cualquier espacio en blanco o eco previo que pueda corromper la imagen
-    if (ob_get_length()) ob_clean();
-
-    $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-    
-    // Nos aseguramos de que el modelo esté instanciado correctamente
-    $usuarioModel = new Usuario();
-    $userData = $usuarioModel->obtenerAvatar($id);
-
-    // Si el usuario existe y tiene una foto en la BD, la renderizamos
-    if ($userData && !empty($userData['avatar'])) {
-        header("Content-Type: " . $userData['tipo_avatar']);
-        echo $userData['avatar'];
-    } else {
-        // SVG por defecto corregido y limpio sin caracteres raros
-        header("Content-Type: image/svg+xml");
-        echo '<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#888888"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>';
+    public function verAvatar() {
+        // Si no hay ID, no hacemos nada
+        if (!isset($_GET['id'])) return;
+        
+        $id = intval($_GET['id']);
+        $usuarioModel = new Usuario();
+        $avatar = $usuarioModel->obtenerAvatar($id);
+        
+        if ($avatar && !empty($avatar['avatar'])) {
+            $tipo = !empty($avatar['tipo_avatar']) ? $avatar['tipo_avatar'] : 'image/jpeg';
+            
+            // Limpiamos cualquier salida previa para que la imagen salga pura
+            if (ob_get_length()) ob_clean();
+            
+            header("Content-Type: " . $tipo);
+            echo $avatar['avatar'];
+            exit(); // ESTE EXIT ES OBLIGATORIO
+        }
     }
-    exit();
-}
 
     public function logout() {
         if (session_status() === PHP_SESSION_NONE) { session_start(); }
