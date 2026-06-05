@@ -6,9 +6,17 @@ require_once 'models/Usuario.php';
 
 class homeController {
     
-    public function index() {
-        require_once 'views/homeView.php';
-    }
+public function index() {
+    // 1. Cargamos el modelo de los Posts
+    require_once 'models/Post.php';
+    $postModel = new Post();
+
+    // 2. Traemos todos los registros de la Base de Datos
+    $posts = $postModel->obtenerTodos();
+
+    // 3. Cargamos tu vista principal (que ya tiene el foreach esperando esta variable)
+    require_once 'views/homeView.php';
+}
 
     public function profile() {
         require_once 'views/profileView.php';

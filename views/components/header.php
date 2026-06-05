@@ -8,6 +8,11 @@
             </a>
         </div>
 
+        <div class="header-search">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="text" placeholder="Buscar publicaciones, mundiales, selecciones..." class="search-input">
+        </div>
+
         <div class="header-actions" style="display: flex; align-items: center; gap: 12px;">
             <?php if (isset($_SESSION['usuario_id'])): ?>
                 
