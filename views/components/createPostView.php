@@ -24,23 +24,21 @@
                 </div>
 
                 <form action="/GolazoHub/index.php?action=store_post" method="POST" enctype="multipart/form-data" class="create-post-form">
-                    <div class="form-group">
-                        <label for="mundial_id">Mundial Asociado</label>
-                        <select name="mundial_id" id="mundial_id" required>
+                    <div class="form-group-select">
+                        <label>Mundial Asociado</label>
+                        <select name="mundial_id" id="mundial_id">
                             <option value="">-- Selecciona un Mundial --</option>
-
                             <?php if (isset($mundiales) && is_array($mundiales)): ?>
-                                <?php foreach ($mundiales as $m): ?>
-                                    <option value="<?= $m['id']; ?>">
-                                        <?= htmlspecialchars($m['nombre'] . ' (' . $m['anio'] . ')'); ?>
+                                <?php foreach ($mundiales as $mundial): ?>
+                                    <option value="<?= htmlspecialchars($mundial['id']); ?>">
+                                        <?= htmlspecialchars($mundial['nombre'] ?? 'Sin nombre'); ?>
                                     </option>
                                 <?php endforeach; ?>
                             <?php endif; ?>
-
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group-select">
                         <label for="categoria_id">Categoría del Debate</label>
                         <select name="categoria_id" id="categoria_id" required>
                             <option value="">-- Selecciona una Categoría --</option>

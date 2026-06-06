@@ -123,12 +123,12 @@ body {
    GRID PRINCIPAL RESPONSIVO DEFINITIVO
    ========================================== */
 .dashboard-grid {
-    display: block; /* En móviles fluye hacia abajo de forma natural */
-    width: 100%;
+    display: grid !important;
+    grid-template-columns: 1fr 320px !important; /* Ajusta a 2 columnas */
+    gap: 20px;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 12px;
-    box-sizing: border-box;
+    padding: 20px;
 }
 
 /* Comportamiento base para celular (Separados y uno abajo del otro) */
@@ -950,4 +950,14 @@ body {
     width: 100%;      /* Hace que se encoja solita si la pantalla es de celular */
     height: auto;     /* Mantiene la proporción original para que no se deforme */
     object-fit: contain;
+}
+
+select, input, textarea {
+    width: 100%;
+    padding: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 5px;
+    margin-bottom: 15px;
 }
